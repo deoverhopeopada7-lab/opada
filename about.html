@@ -1,0 +1,481 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEO STORE | About Us</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #080d16;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        header {
+            width: 100%;
+            min-height: 85px;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            background: #080d16;
+            border-bottom: 1px solid rgba(0, 183, 255, 0.18);
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            color: #ffffff;
+            font-size: clamp(22px, 3vw, 29px);
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .logo span,
+        h2 span {
+            color: #00b7ff;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(13px, 2vw, 27px);
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #c5cedb;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #00b7ff;
+        }
+
+        nav .logout {
+            color: #00b7ff;
+            border: 1px solid #00b7ff;
+            padding: 11px 18px;
+        }
+
+        nav .logout:hover {
+            color: #080d16;
+            background: #00b7ff;
+            box-shadow: 0 0 20px rgba(0, 183, 255, 0.25);
+        }
+
+        .section-heading {
+            text-align: center;
+            padding: 75px 20px 15px;
+            background:
+                radial-gradient(
+                    ellipse at top,
+                    rgba(0, 183, 255, 0.10),
+                    transparent 65%
+                ),
+                #080d16;
+        }
+
+        .tag {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #00b7ff;
+            letter-spacing: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .tag::before,
+        .tag::after {
+            content: "";
+            width: 25px;
+            height: 2px;
+            background: #00b7ff;
+        }
+
+        .section-heading h1 {
+            font-size: clamp(30px, 4.5vw, 45px);
+            margin: 22px 0 15px;
+            letter-spacing: -1px;
+        }
+
+        .section-heading p {
+            max-width: 550px;
+            margin: auto;
+            color: #aab5c4;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .cards {
+            max-width: 1120px;
+            width: 84%;
+            margin: 40px auto 75px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            min-height: 190px;
+            padding: 30px;
+            background: linear-gradient(
+                135deg,
+                #111c2a,
+                #0c131e
+            );
+            border: 1px solid #202e3e;
+            border-radius: 10px;
+            transition: 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: #00b7ff;
+            box-shadow: 0 12px 30px rgba(0, 183, 255, 0.07);
+        }
+
+        .card-number {
+            display: inline-block;
+            color: #00b7ff;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 21px;
+            margin-bottom: 14px;
+            color: #ffffff;
+        }
+
+        .card p {
+            color: #aab5c4;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .highlight {
+            padding: 70px 7%;
+            text-align: center;
+            background:
+                radial-gradient(
+                    ellipse at center top,
+                    rgba(0, 183, 255, 0.12),
+                    transparent 65%
+                ),
+                #0c1420;
+            border-top: 1px solid #1a2939;
+            border-bottom: 1px solid #1a2939;
+        }
+
+        .highlight h2 {
+            font-size: clamp(27px, 4.5vw, 44px);
+            line-height: 1.3;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .highlight p {
+            max-width: 550px;
+            margin: auto;
+            color: #aab5c4;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 28px;
+            padding: 16px 25px;
+            background: #00b7ff;
+            color: #06111c;
+            border: 1px solid #00b7ff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #ffffff;
+            border-color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            padding: 23px 15px;
+            text-align: center;
+            color: #8290a3;
+            background: #080d16;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        @media (min-width: 1400px) {
+            .cards {
+                max-width: 1120px;
+            }
+        }
+
+        @media (max-width: 950px) {
+            header {
+                padding: 20px 5%;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav {
+                gap: 18px;
+            }
+
+            .cards {
+                width: 88%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 20px 16px;
+                gap: 18px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            nav {
+                width: 100%;
+                gap: 15px 19px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            nav .logout {
+                padding: 9px 12px;
+            }
+
+            .section-heading {
+                padding: 55px 22px 10px;
+            }
+
+            .tag {
+                font-size: 10px;
+                letter-spacing: 2px;
+                gap: 7px;
+            }
+
+            .tag::before,
+            .tag::after {
+                width: 18px;
+            }
+
+            .section-heading h1 {
+                font-size: 30px;
+                line-height: 1.25;
+            }
+
+            .section-heading p {
+                font-size: 13px;
+            }
+
+            .cards {
+                width: 88%;
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin: 30px auto 50px;
+            }
+
+            .card {
+                min-height: auto;
+                padding: 25px;
+            }
+
+            .card-number {
+                margin-bottom: 15px;
+            }
+
+            .card h2 {
+                font-size: 20px;
+            }
+
+            .card p {
+                font-size: 13px;
+            }
+
+            .highlight {
+                padding: 55px 22px;
+            }
+
+            .highlight h2 {
+                font-size: 28px;
+            }
+
+            .highlight p {
+                font-size: 13px;
+            }
+
+            .btn {
+                padding: 14px 18px;
+                font-size: 11px;
+            }
+
+            footer {
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            nav {
+                gap: 13px;
+            }
+
+            nav a {
+                font-size: 11px;
+            }
+
+            .cards {
+                width: 90%;
+            }
+
+            .section-heading h1 {
+                font-size: 27px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="home.html" class="logo">DEO <span>STORE.</span></a>
+
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="about.html" class="active">About</a>
+            <a href="product.html">Products</a>
+            <a href="services.html">Services</a>
+            <a href="contact.html">Contact</a>
+            <a href="index.html" class="logout">Log Out</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="section-heading">
+            <div class="tag">GET TO KNOW US</div>
+
+            <h1>What Makes Us <span>Different?</span></h1>
+
+            <p>
+                We believe shopping for your everyday style should be
+                simple, convenient, and enjoyable. Get to know the
+                purpose and values behind DEO STORE.
+            </p>
+        </section>
+
+        <section class="cards">
+
+            <div class="card">
+                <span class="card-number">01 / OUR STORY</span>
+                <h2>Our Story</h2>
+                <p>
+                    DEO STORE was created to make shopping for everyday
+                    fashion simple, convenient, and enjoyable. We want
+                    customers to find styles that fit their personality.
+                </p>
+            </div>
+
+            <div class="card">
+                <span class="card-number">02 / OUR MISSION</span>
+                <h2>Our Mission</h2>
+                <p>
+                    Our mission is to provide a convenient shopping
+                    experience with stylish T-shirts that suit different
+                    tastes and everyday needs.
+                </p>
+            </div>
+
+            <div class="card">
+                <span class="card-number">03 / OUR VISION</span>
+                <h2>Our Vision</h2>
+                <p>
+                    We aim to become a trusted online store known for
+                    style, customer satisfaction, and a simple,
+                    enjoyable shopping experience.
+                </p>
+            </div>
+
+            <div class="card">
+                <span class="card-number">04 / WHY DEO STORE</span>
+                <h2>Why Choose Us?</h2>
+                <p>
+                    Our website makes it easy to browse our collection
+                    and discover T-shirts for everyday wear, helping
+                    customers find a style they feel good in.
+                </p>
+            </div>
+
+        </section>
+
+        <section class="highlight">
+            <h2>FIND YOUR STYLE.<br><span>BE CONFIDENT.</span></h2>
+
+            <p>
+                Your everyday style starts here. Explore the DEO STORE
+                collection and find your next favorite T-shirt.
+            </p>
+
+            <a href="product.html" class="btn">
+                EXPLORE PRODUCTS <span>→</span>
+            </a>
+        </section>
+
+    </main>
+
+    <footer>
+        &copy; 2026 DEO STORE. All Rights Reserved.
+    </footer>
+
+</body>
+</html>

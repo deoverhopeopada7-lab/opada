@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deo's Products | Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background:
+                radial-gradient(circle at top left, #243b72, transparent 40%),
+                radial-gradient(circle at bottom right, #57256d, transparent 40%),
+                #080d1b;
+            color: white;
+        }
+
+        .login-page {
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .form-box {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            padding: 40px 32px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .logo {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #00d4ff, #7657ff);
+            font-size: 35px;
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.25);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 29px;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .hint {
+            text-align: center;
+            color: #b5bfd4;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 9px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #e2e8f5;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 45px 15px 15px;
+            border: 1px solid #34405b;
+            border-radius: 12px;
+            background: rgba(8, 13, 27, 0.7);
+            color: white;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input::placeholder {
+            color: #78849d;
+        }
+
+        input:focus {
+            border-color: #00d4ff;
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.12);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            color: #aebbd3;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #00c6ff, #7460ff);
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 198, 255, 0.25);
+        }
+
+        .notice {
+            color: #ff9b9b;
+            background: rgba(255, 60, 90, 0.1);
+            border: 1px solid rgba(255, 60, 90, 0.25);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .form-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #b5bfd4;
+        }
+
+        .form-link a {
+            color: #00d4ff;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .form-link a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 11px;
+            color: #7c89a3;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+            }
+
+            .form-box {
+                padding: 32px 22px;
+                border-radius: 20px;
+            }
+
+            h2 {
+                font-size: 25px;
+            }
+
+            .logo {
+                width: 65px;
+                height: 65px;
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="login-page">
+        <form id="first-login-form" class="form-box">
+
+            <div class="logo">🛍️</div>
+
+            <h2>Deo's Products</h2>
+            <p class="hint">
+                Welcome back!<br>
+                Log in to explore our products.
+            </p>
+
+            <div class="input-group">
+                <label for="first-username">Username</label>
+                <input
+                    id="first-username"
+                    type="text"
+                    placeholder="Enter your username"
+                    autocomplete="username"
+                    required>
+            </div>
+
+            <div class="input-group">
+                <label for="first-password">Password</label>
+
+                <div class="input-wrapper">
+                    <input
+                        id="first-password"
+                        type="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required>
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        id="toggle-password">
+                        SHOW
+                    </button>
+                </div>
+            </div>
+
+            <button class="action-btn" type="submit">
+                LOG IN &nbsp; →
+            </button>
+
+            <p id="first-login-message" class="notice hidden"></p>
+
+            <p class="form-link">
+                Don't have an account?
+                <a href="signup.html">Sign Up</a>
+            </p>
+
+        </form>
+
+        <p class="footer">
+            © 2026 DEO'S PRODUCTS · ALL RIGHTS RESERVED
+        </p>
+    </section>
+
+    <script>
+        const loginForm = document.getElementById("first-login-form");
+        const message = document.getElementById("first-login-message");
+        const passwordInput = document.getElementById("first-password");
+        const toggleButton = document.getElementById("toggle-password");
+
+        // Show or hide password
+        toggleButton.addEventListener("click", function () {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleButton.textContent = "HIDE";
+            } else {
+                passwordInput.type = "password";
+                toggleButton.textContent = "SHOW";
+            }
+        });
+
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const username = document
+                .getElementById("first-username")
+                .value.trim();
+
+            const password = passwordInput.value;
+
+            // Your login credentials
+            if (
+                username.toLowerCase() === "deo" &&
+                password === "12345"
+            ) {
+                localStorage.setItem(
+                    "shopCurrentUser",
+                    JSON.stringify({
+                        name: "Deo",
+                        username: "deo",
+                        email: ""
+                    })
+                );
+
+                window.location.href = "home.html";
+                return;
+            }
+
+            // Check accounts registered on the sign-up page
+            let users = [];
+
+            try {
+                users = JSON.parse(
+                    localStorage.getItem("shopUsers") || "[]"
+                );
+            } catch (error) {
+                users = [];
+            }
+
+            const user = users.find(account =>
+                account.username.toLowerCase() ===
+                    username.toLowerCase() &&
+                account.password === password
+            );
+
+            if (user) {
+                localStorage.setItem(
+                    "shopCurrentUser",
+                    JSON.stringify({
+                        name: user.name,
+                        username: user.username,
+                        email: user.email
+                    })
+                );
+
+                window.location.href = "home.html";
+            } else {
+                message.textContent =
+                    "Incorrect username or password. Please try again.";
+
+                message.classList.remove("hidden");
+            }
+        });
+    </script>
+
+</body>
+</html>

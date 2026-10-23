@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEO STORE | Products</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-gutter:stable}
+body{font-family:Arial,sans-serif;background:#080d16;color:#fff;overflow-x:hidden}
+header{width:100%;min-height:85px;padding:20px 7%;display:flex;justify-content:space-between;align-items:center;gap:25px;background:#080d16;border-bottom:1px solid rgba(0,183,255,.18)}
+.logo{color:#fff;font-size:clamp(22px,3vw,29px);font-weight:bold;letter-spacing:3px;text-decoration:none;white-space:nowrap}
+.logo span,.section-heading h1 span{color:#00b7ff}
+nav{display:flex;align-items:center;justify-content:center;gap:clamp(13px,2vw,27px);flex-wrap:wrap}
+nav a{color:#c5cedb;text-decoration:none;font-size:14px;font-weight:bold;transition:.3s}
+nav a:hover,nav a.active{color:#00b7ff}
+nav .logout{color:#00b7ff;border:1px solid #00b7ff;padding:11px 18px}
+nav .logout:hover{color:#080d16;background:#00b7ff}
+.section-heading{text-align:center;padding:75px 20px 35px;background:radial-gradient(ellipse at top,rgba(0,183,255,.1),transparent 65%),#080d16}
+.tag{display:flex;align-items:center;justify-content:center;gap:10px;color:#00b7ff;letter-spacing:4px;font-size:12px;font-weight:bold}
+.tag:before,.tag:after{content:"";width:25px;height:2px;background:#00b7ff}
+.section-heading h1{font-size:clamp(30px,4.5vw,45px);margin:22px 0 15px;letter-spacing:-1px}
+.section-heading p{max-width:550px;margin:auto;color:#aab5c4;font-size:15px;line-height:1.9}
+.products-section{max-width:1120px;width:84%;margin:25px auto 75px}
+.product-tools{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:25px}
+.product-count{color:#aab5c4;font-size:14px}
+.search-box{width:270px;max-width:100%;height:42px;padding:0 14px;background:#0c1420;color:#fff;border:1px solid #26384d;border-radius:4px;outline:none;font-size:14px}
+.search-box:focus{border-color:#00b7ff}
+.search-box::placeholder{color:#8290a3}
+.cart-toggle{min-height:42px;padding:0 18px;background:transparent;color:#00b7ff;border:1px solid #00b7ff;font-size:13px;font-weight:bold;cursor:pointer}
+.cart-toggle:hover{background:#00b7ff;color:#080d16}
+.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+.product-card{min-width:0;display:flex;flex-direction:column;overflow:hidden;background:linear-gradient(135deg,#111c2a,#0c131e);border:1px solid #202e3e;border-radius:10px;transition:.3s}
+.product-card:hover{transform:translateY(-5px);border-color:#00b7ff;box-shadow:0 12px 30px rgba(0,183,255,.07)}
+.image-container{width:100%;aspect-ratio:1/1;overflow:hidden;background:#111c2a}
+.product-image{width:100%;height:100%;display:block;object-fit:cover;transition:transform .4s}
+.product-card:hover .product-image{transform:scale(1.05)}
+.product-info{flex:1;display:flex;flex-direction:column;padding:17px}
+.product-info h2{font-size:17px;line-height:1.5;margin-bottom:9px}
+.product-description{flex:1;color:#aab5c4;font-size:13px;line-height:1.8;margin-bottom:15px}
+.product-price{color:#00b7ff;font-size:19px;font-weight:bold;margin-bottom:16px}
+.product-actions{display:flex;gap:8px}
+.product-actions button{flex:1;min-width:0;min-height:38px;padding:8px 5px;font-family:Arial,sans-serif;font-size:12px;font-weight:bold;cursor:pointer;transition:.3s}
+.add-button{color:#00b7ff;background:transparent;border:1px solid #00b7ff}
+.add-button:hover{color:#080d16;background:#00b7ff}
+.buy-button{color:#080d16;background:#00b7ff;border:1px solid #00b7ff}
+.buy-button:hover{background:#fff;border-color:#fff}
+.no-results{grid-column:1/-1;text-align:center;padding:40px 15px;color:#aab5c4}
+.cart-section{display:none;margin-top:40px;padding:25px;background:#0c1420;border:1px solid #202e3e;border-radius:10px;scroll-margin-top:20px}
+.cart-section h2{color:#00b7ff;font-size:25px;margin-bottom:20px}
+.empty-cart{color:#aab5c4;padding:10px 0}
+.cart-item{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:15px 0;border-bottom:1px solid #202e3e}
+.cart-item-info{min-width:0;line-height:1.7}
+.cart-item-info strong{overflow-wrap:anywhere}
+.cart-item-info span{display:block;color:#00b7ff;font-size:14px}
+.remove-button{flex-shrink:0;padding:9px 12px;color:#ff8191;background:transparent;border:1px solid #ff8191;cursor:pointer}
+.remove-button:hover{color:#fff;background:#8d263a}
+.cart-bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:23px}
+.cart-total{font-size:20px;font-weight:bold}
+.cart-total span{color:#00b7ff}
+.cart-actions{display:flex;gap:10px;flex-wrap:wrap}
+.cart-actions button{min-height:40px;padding:0 16px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;cursor:pointer;transition:.3s}
+.clear-button{color:#00b7ff;background:transparent;border:1px solid #00b7ff}
+.clear-button:hover{color:#080d16;background:#00b7ff}
+.checkout-button{color:#080d16;background:#00b7ff;border:1px solid #00b7ff}
+.checkout-button:hover{background:#fff;border-color:#fff}
+footer{padding:23px 15px;text-align:center;color:#8290a3;background:#080d16;border-top:1px solid rgba(0,183,255,.18);font-size:12px;line-height:1.8}
+@media(max-width:1100px){.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:950px){header{padding:20px 5%;flex-direction:column;gap:20px}nav{gap:18px}.products-section{width:88%}}
+@media(max-width:600px){
+header{padding:20px 16px;gap:18px}.logo{font-size:24px}nav{width:100%;gap:15px 19px}nav a{font-size:12px}nav .logout{padding:9px 12px}
+.section-heading{padding:55px 22px 20px}.tag{font-size:10px;letter-spacing:2px;gap:7px}.tag:before,.tag:after{width:18px}
+.section-heading h1{font-size:30px;line-height:1.25}.section-heading p{font-size:13px}
+.products-section{width:88%;margin:20px auto 50px}.product-tools{flex-direction:column;align-items:stretch}
+.search-box,.cart-toggle{width:100%}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.product-info{padding:12px}.product-info h2{font-size:14px}.product-description{font-size:12px}.product-price{font-size:17px}
+.product-actions{flex-direction:column}.product-actions button{width:100%;min-height:36px}
+.cart-section{padding:18px}.cart-bottom{align-items:flex-start;flex-direction:column}.cart-actions{width:100%}.cart-actions button{flex:1}footer{font-size:11px}
+}
+@media(max-width:360px){nav{gap:13px}nav a{font-size:11px}.products-section{width:90%}.section-heading h1{font-size:27px}.product-grid{gap:10px}.product-info{padding:9px}.product-info h2{font-size:13px}.product-actions button{font-size:11px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+
+<body>
+<header>
+    <a href="home.html" class="logo">DEO <span>STORE.</span></a>
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="product.html" class="active">Products</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+        <a href="index.html" class="logout">Log Out</a>
+    </nav>
+</header>
+
+<main>
+    <section class="section-heading">
+        <div class="tag">OUR COLLECTION</div>
+        <h1>Explore Our <span>Products</span></h1>
+        <p>Discover our collection of everyday T-shirts and clothing styles. Find your favorites and choose the pieces that match your personal style.</p>
+    </section>
+
+    <section class="products-section">
+        <div class="product-tools">
+            <p class="product-count" id="product-count">Browse our collection</p>
+            <input type="search" class="search-box" id="search" placeholder="Search products..." aria-label="Search products">
+            <button class="cart-toggle" onclick="toggleCart()">View Cart (<span id="cart-count">0</span>)</button>
+        </div>
+
+        <div class="product-grid" id="product-grid"></div>
+
+        <section class="cart-section" id="cart-section">
+            <h2>Your Shopping Cart</h2>
+            <div id="cart-items"></div>
+            <div class="cart-bottom">
+                <p class="cart-total">Total: <span id="cart-total">₱0.00</span></p>
+                <div class="cart-actions">
+                    <button class="clear-button" onclick="clearCart()">Clear Cart</button>
+                    <button class="checkout-button" onclick="checkout()">Checkout</button>
+                </div>
+            </div>
+        </section>
+    </section>
+</main>
+
+<footer>&copy; 2026 DEO STORE. All Rights Reserved.</footer>
+
+<script>
+const products = [
+    {
+        name:"Classic T-Shirt",
+        price:399,
+        description:"A simple and comfortable shirt for everyday wear.",
+        image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Graphic T-Shirt",
+        price:449,
+        description:"A casual graphic shirt for a standout look.",
+        image:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Oversized T-Shirt",
+        price:499,
+        description:"A relaxed fit for a comfortable everyday outfit.",
+        image:"https://images.unsplash.com/photo-1527719327859-c6ce80353573?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Basic White T-Shirt",
+        price:349,
+        description:"A timeless basic that matches many outfits.",
+        image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80",
+        backupImage:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Black T-Shirt",
+        price:379,
+        description:"A versatile black shirt for a clean look.",
+        image:"https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Striped T-Shirt",
+        price:429,
+        description:"A classic striped style for casual days.",
+        image:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Polo Shirt",
+        price:549,
+        description:"A smart casual shirt for different occasions.",
+        image:"https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=600&q=80",
+        backupImage:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Long Sleeve Shirt",
+        price:599,
+        description:"A long sleeve option for a simple layered outfit.",
+        image:"https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Denim Jacket",
+        price:1299,
+        description:"A timeless layer for casual outfits.",
+        image:"https://images.unsplash.com/photo-1543076447-215ad9ba6923?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Classic Hoodie",
+        price:899,
+        description:"A cozy hoodie for cool days and casual wear.",
+        image:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Casual Sweatshirt",
+        price:749,
+        description:"A comfortable sweatshirt for everyday outfits.",
+        image:"https://images.unsplash.com/photo-1578681994506-b8f463449011?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Casual Shorts",
+        price:449,
+        description:"Comfortable shorts for relaxed days.",
+        image:"https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Everyday Sneakers",
+        price:1499,
+        description:"Everyday sneakers for casual outfits.",
+        image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Classic Backpack",
+        price:799,
+        description:"A practical backpack for school and travel.",
+        image:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Crossbody Bag",
+        price:649,
+        description:"A handy bag for your everyday essentials.",
+        image:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Classic Wristwatch",
+        price:999,
+        description:"A simple accessory for daily use.",
+        image:"https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Sunglasses",
+        price:349,
+        description:"A stylish accessory for sunny days.",
+        image:"https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Everyday Cap",
+        price:299,
+        description:"A casual cap to complete your look.",
+        image:"https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Leather Wallet",
+        price:449,
+        description:"A compact wallet for your everyday essentials.",
+        image:"https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        name:"Everyday Tote Bag",
+        price:399,
+        description:"A convenient tote bag for daily activities.",
+        image:"https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80"
+    }
+];
+
+let cart = [];
+
+function formatPrice(price) {
+    return "₱" + price.toLocaleString("en-PH", {
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+    });
+}
+
+function displayProducts() {
+    const grid = document.getElementById("product-grid");
+    const searchValue = document.getElementById("search").value.trim().toLowerCase();
+
+    const filteredProducts = products
+        .map((product,index) => ({...product,index}))
+        .filter(product =>
+            product.name.toLowerCase().includes(searchValue) ||
+            product.description.toLowerCase().includes(searchValue)
+        );
+
+    grid.innerHTML = "";
+    document.getElementById("product-count").textContent =
+        filteredProducts.length + " products available";
+
+    if (filteredProducts.length === 0) {
+        const message = document.createElement("p");
+        message.className = "no-results";
+        message.textContent = "No products found. Please try another search.";
+        grid.appendChild(message);
+        return;
+    }
+
+    filteredProducts.forEach(product => {
+        const card = document.createElement("article");
+        card.className = "product-card";
+
+        const imageContainer = document.createElement("div");
+        imageContainer.className = "image-container";
+
+        const image = document.createElement("img");
+        image.className = "product-image";
+        image.alt = product.name;
+        image.loading = "lazy";
+
+        const imageOptions = [
+            product.image,
+            product.backupImage,
+            "https://placehold.co/600x600/111c2a/00b7ff?text=" +
+            encodeURIComponent(product.name)
+        ].filter(Boolean);
+
+        let imageAttempt = 0;
+
+        image.onerror = function() {
+            imageAttempt++;
+
+            if (imageAttempt < imageOptions.length) {
+                this.src = imageOptions[imageAttempt];
+            } else {
+                this.onerror = null;
+                this.style.display = "none";
+
+                const fallback = document.createElement("div");
+                fallback.style.cssText =
+                    "width:100%;height:100%;display:flex;align-items:center;" +
+                    "justify-content:center;padding:15px;text-align:center;" +
+                    "color:#00b7ff;font-weight:bold;background:#111c2a";
+
+                fallback.textContent = product.name;
+                imageContainer.appendChild(fallback);
+            }
+        };
+
+        image.src = imageOptions[0];
+
+        const info = document.createElement("div");
+        info.className = "product-info";
+
+        const name = document.createElement("h2");
+        name.textContent = product.name;
+
+        const description = document.createElement("p");
+        description.className = "product-description";
+        description.textContent = product.description;
+
+        const price = document.createElement("p");
+        price.className = "product-price";
+        price.textContent = formatPrice(product.price);
+
+        const actions = document.createElement("div");
+        actions.className = "product-actions";
+
+        const addButton = document.createElement("button");
+        addButton.className = "add-button";
+        addButton.textContent = "Add to Cart";
+        addButton.onclick = () => addToCart(product.index);
+
+        const buyButton = document.createElement("button");
+        buyButton.className = "buy-button";
+        buyButton.textContent = "Buy Now";
+        buyButton.onclick = () => buyNow(product.index);
+
+        actions.append(addButton,buyButton);
+        info.append(name,description,price,actions);
+        imageContainer.appendChild(image);
+        card.append(imageContainer,info);
+        grid.appendChild(card);
+    });
+}
+
+function addToCart(index) {
+    cart.push(products[index]);
+    updateCart();
+    alert(products[index].name + " added to your cart!");
+}
+
+function updateCart() {
+    const cartItems = document.getElementById("cart-items");
+    cartItems.innerHTML = "";
+    let total = 0;
+
+    document.getElementById("cart-count").textContent = cart.length;
+
+    if (cart.length === 0) {
+        const message = document.createElement("p");
+        message.className = "empty-cart";
+        message.textContent = "Your cart is empty.";
+        cartItems.appendChild(message);
+    }
+
+    cart.forEach((item,index) => {
+        total += item.price;
+
+        const row = document.createElement("div");
+        row.className = "cart-item";
+
+        const info = document.createElement("div");
+        info.className = "cart-item-info";
+
+        const name = document.createElement("strong");
+        name.textContent = item.name;
+
+        const price = document.createElement("span");
+        price.textContent = formatPrice(item.price);
+        info.append(name,price);
+
+        const removeButton = document.createElement("button");
+        removeButton.className = "remove-button";
+        removeButton.textContent = "Remove";
+        removeButton.onclick = () => removeFromCart(index);
+
+        row.append(info,removeButton);
+        cartItems.appendChild(row);
+    });
+
+    document.getElementById("cart-total").textContent = formatPrice(total);
+}
+
+function removeFromCart(index) {
+    cart.splice(index,1);
+    updateCart();
+}
+
+function clearCart() {
+    if (cart.length === 0) {
+        alert("Your cart is already empty.");
+        return;
+    }
+
+    if (confirm("Are you sure you want to clear your cart?")) {
+        cart = [];
+        updateCart();
+    }
+}
+
+function toggleCart() {
+    const section = document.getElementById("cart-section");
+    const isVisible = section.style.display === "block";
+    section.style.display = isVisible ? "none" : "block";
+
+    if (!isVisible) {
+        updateCart();
+        section.scrollIntoView({behavior:"smooth",block:"start"});
+    }
+}
+
+function buyNow(index) {
+    cart.push(products[index]);
+    updateCart();
+
+    const section = document.getElementById("cart-section");
+    section.style.display = "block";
+    section.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        alert("Your cart is empty. Please add a product first.");
+        return;
+    }
+
+    const total = cart.reduce((sum,item) => sum + item.price,0);
+
+    alert(
+        "Thank you for shopping at DEO STORE!\n\n" +
+        "Items: " + cart.length + "\n" +
+        "Total: " + formatPrice(total) + "\n\n" +
+        "This is a sample checkout for your school project."
+    );
+}
+
+document.getElementById("search").addEventListener("input",displayProducts);
+displayProducts();
+updateCart();
+</script>
+</body>
+</html>

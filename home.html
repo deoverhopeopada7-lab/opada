@@ -1,0 +1,795 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEO STORE | Home</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #080d16;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        header {
+            width: 100%;
+            min-height: 85px;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            background: rgba(8, 13, 22, 0.96);
+            border-bottom: 1px solid rgba(0, 183, 255, 0.18);
+            position: relative;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: clamp(22px, 3vw, 29px);
+            letter-spacing: 3px;
+            white-space: nowrap;
+        }
+
+        header h1 span {
+            color: #00b7ff;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(13px, 2vw, 27px);
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #c5cedb;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #00b7ff;
+        }
+
+        nav .logout {
+            color: #00b7ff;
+            border: 1px solid #00b7ff;
+            padding: 11px 18px;
+            transition: 0.3s ease;
+        }
+
+        nav .logout:hover {
+            color: #080d16;
+            background: #00b7ff;
+            box-shadow: 0 0 20px rgba(0, 183, 255, 0.3);
+        }
+
+        .hero {
+            min-height: max(680px, calc(100svh - 85px));
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 90px 9%;
+            overflow: hidden;
+            isolation: isolate;
+            background:
+                radial-gradient(
+                    circle at 80% 50%,
+                    rgba(0, 183, 255, 0.15),
+                    transparent 38%
+                ),
+                #0b1422;
+        }
+
+        .hero video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(5, 10, 19, 0.97) 0%,
+                    rgba(5, 10, 19, 0.89) 38%,
+                    rgba(5, 10, 19, 0.63) 68%,
+                    rgba(5, 10, 19, 0.75) 100%
+                ),
+                linear-gradient(
+                    0deg,
+                    rgba(5, 10, 19, 0.55),
+                    transparent 45%
+                );
+            z-index: -1;
+        }
+
+        .hero-content {
+            width: 54%;
+            max-width: 650px;
+            position: relative;
+            z-index: 2;
+            animation: appear 1s ease both;
+        }
+
+        .tagline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #00b7ff;
+            font-size: 12px;
+            letter-spacing: 4px;
+            font-weight: bold;
+            margin-bottom: 23px;
+        }
+
+        .tagline::before {
+            content: "";
+            width: 32px;
+            height: 2px;
+            background: #00b7ff;
+        }
+
+        .hero-content h2 {
+            font-size: clamp(52px, 6.5vw, 88px);
+            line-height: 0.98;
+            margin-bottom: 28px;
+            font-weight: 900;
+            letter-spacing: -4px;
+            text-transform: uppercase;
+        }
+
+        .hero-content h2 span {
+            display: inline-block;
+            color: #00b7ff;
+            text-shadow: 0 0 35px rgba(0, 183, 255, 0.2);
+        }
+
+        .hero-content p {
+            color: #c0cad8;
+            font-size: 16px;
+            line-height: 1.9;
+            max-width: 470px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-top: 35px;
+        }
+
+        .shop-button {
+            min-height: 54px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 16px 28px;
+            background: #00b7ff;
+            color: #06111c;
+            border: 1px solid #00b7ff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            transition: 0.3s ease;
+        }
+
+        .shop-button:hover {
+            background: #ffffff;
+            border-color: #ffffff;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 183, 255, 0.2);
+        }
+
+        .explore-button {
+            min-height: 54px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 22px;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+        .explore-button:hover {
+            border-color: #00b7ff;
+            color: #00b7ff;
+        }
+
+        /* RIGHT SIDE PICTURE SLIDESHOW */
+
+        .hero-gallery {
+            position: absolute;
+            right: 8%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 37%;
+            max-width: 470px;
+            height: min(510px, 65vh);
+            min-height: 350px;
+            z-index: 1;
+        }
+
+        .gallery-frame {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            border: 1px solid rgba(0, 183, 255, 0.45);
+            border-radius: 4px;
+            background: #111c2a;
+            box-shadow:
+                0 0 35px rgba(0, 183, 255, 0.10),
+                18px 18px 0 rgba(0, 183, 255, 0.04);
+        }
+
+        .gallery-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            animation: pictureShuffle 18s infinite;
+        }
+
+        .gallery-slide:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .gallery-slide:nth-child(2) {
+            animation-delay: 6s;
+        }
+
+        .gallery-slide:nth-child(3) {
+            animation-delay: 12s;
+        }
+
+        .gallery-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.82);
+        }
+
+        .gallery-slide::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                0deg,
+                rgba(5, 10, 19, 0.88),
+                transparent 55%,
+                rgba(5, 10, 19, 0.08)
+            );
+        }
+
+        .gallery-caption {
+            position: absolute;
+            left: 25px;
+            right: 20px;
+            bottom: 28px;
+            z-index: 2;
+        }
+
+        .gallery-caption span {
+            display: block;
+            color: #00b7ff;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .gallery-caption h3 {
+            color: #ffffff;
+            font-size: clamp(20px, 2.5vw, 30px);
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .gallery-corner {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            z-index: 3;
+            padding: 9px 12px;
+            color: #00b7ff;
+            background: rgba(8, 13, 22, 0.82);
+            border: 1px solid rgba(0, 183, 255, 0.45);
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .gallery-decoration {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            border-top: 3px solid #00b7ff;
+            border-right: 3px solid #00b7ff;
+            right: -10px;
+            top: -10px;
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .gallery-bottom {
+            position: absolute;
+            bottom: -35px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            color: #aab5c4;
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+
+        .gallery-bottom span:last-child {
+            color: #00b7ff;
+        }
+
+        .hero-bottom {
+            position: absolute;
+            left: 9%;
+            right: 9%;
+            bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            color: #8f9daf;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 3;
+        }
+
+        .hero-bottom span:last-child {
+            color: #00b7ff;
+        }
+
+        .bottom-text {
+            padding: 23px 15px;
+            text-align: center;
+            color: #8290a3;
+            background: #080d16;
+            border-top: 1px solid #172333;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pictureShuffle {
+            0% {
+                opacity: 0;
+                transform: scale(1.04);
+            }
+
+            5% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            28% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            34% {
+                opacity: 0;
+                transform: scale(1.03);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(1.03);
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .hero {
+                padding-left: max(9%, calc((100% - 1200px) / 2));
+            }
+
+            .hero-gallery {
+                right: max(8%, calc((100% - 1250px) / 2));
+            }
+        }
+
+        @media (max-width: 950px) {
+            header {
+                padding: 20px 5%;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav {
+                gap: 18px;
+            }
+
+            .hero {
+                min-height: 700px;
+                padding: 80px 6%;
+            }
+
+            .hero-content {
+                width: 55%;
+            }
+
+            .hero-content h2 {
+                font-size: clamp(46px, 6vw, 65px);
+            }
+
+            .hero-gallery {
+                right: 5%;
+                width: 36%;
+                height: 420px;
+                min-height: 320px;
+            }
+
+            .gallery-caption {
+                left: 17px;
+                bottom: 22px;
+            }
+
+            .hero-bottom {
+                left: 6%;
+                right: 6%;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .hero {
+                min-height: auto;
+                padding: 65px 7% 85px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 35px;
+            }
+
+            .overlay {
+                background: linear-gradient(
+                    90deg,
+                    rgba(5, 10, 19, 0.94),
+                    rgba(5, 10, 19, 0.78)
+                );
+            }
+
+            .hero-content {
+                width: 100%;
+                max-width: 580px;
+            }
+
+            .hero-content h2 {
+                font-size: clamp(50px, 10vw, 70px);
+            }
+
+            .hero-gallery {
+                position: relative;
+                top: auto;
+                right: auto;
+                transform: none;
+                width: min(100%, 430px);
+                height: 390px;
+                min-height: 0;
+                align-self: center;
+                margin: 5px 0 20px;
+            }
+
+            .hero-bottom {
+                left: 7%;
+                right: 7%;
+                bottom: 22px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 20px 16px;
+                gap: 18px;
+            }
+
+            header h1 {
+                font-size: 24px;
+                letter-spacing: 3px;
+            }
+
+            nav {
+                width: 100%;
+                gap: 15px 19px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            nav .logout {
+                padding: 9px 12px;
+            }
+
+            .hero {
+                padding: 55px 24px 85px;
+                gap: 30px;
+            }
+
+            .tagline {
+                font-size: 10px;
+                letter-spacing: 2px;
+                gap: 8px;
+                margin-bottom: 22px;
+            }
+
+            .tagline::before {
+                width: 22px;
+            }
+
+            .hero-content h2 {
+                font-size: clamp(46px, 12vw, 66px);
+                letter-spacing: -2px;
+                line-height: 1.02;
+                margin-bottom: 23px;
+            }
+
+            .hero-content p {
+                font-size: 14px;
+                line-height: 1.85;
+            }
+
+            .hero-buttons {
+                gap: 12px;
+                margin-top: 28px;
+            }
+
+            .shop-button,
+            .explore-button {
+                min-height: 49px;
+                padding: 14px 17px;
+                font-size: 11px;
+            }
+
+            .hero-gallery {
+                height: 340px;
+                width: 100%;
+                max-width: 430px;
+                margin-top: 5px;
+            }
+
+            .gallery-caption h3 {
+                font-size: 25px;
+            }
+
+            .gallery-caption {
+                left: 20px;
+                bottom: 23px;
+            }
+
+            .gallery-corner {
+                top: 14px;
+                left: 14px;
+                font-size: 9px;
+            }
+
+            .gallery-bottom {
+                font-size: 9px;
+                letter-spacing: 1px;
+            }
+
+            .hero-bottom {
+                left: 24px;
+                right: 24px;
+                bottom: 20px;
+                font-size: 9px;
+                letter-spacing: 1px;
+            }
+
+            .bottom-text {
+                padding: 20px 15px;
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            nav {
+                gap: 13px;
+            }
+
+            nav a {
+                font-size: 11px;
+            }
+
+            .hero {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+
+            .hero-content h2 {
+                font-size: 46px;
+            }
+
+            .hero-gallery {
+                height: 290px;
+            }
+
+            .gallery-caption h3 {
+                font-size: 21px;
+            }
+
+            .hero-bottom {
+                left: 18px;
+                right: 18px;
+                font-size: 8px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
+
+            .gallery-slide:first-child {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>DEO <span>STORE.</span></h1>
+
+        <nav>
+            <a href="home.html" class="active">Home</a>
+            <a href="about.html">About</a>
+            <a href="product.html">Products</a>
+            <a href="services.html">Services</a>
+            <a href="contact.html">Contact</a>
+            <a href="index.html" class="logout">Log Out</a>
+        </nav>
+    </header>
+
+    <main class="hero">
+
+        <video autoplay muted loop playsinline preload="metadata"
+            aria-hidden="true">
+            <source src="com.mp4" type="video/mp4">
+        </video>
+
+        <div class="overlay"></div>
+
+        <div class="hero-content">
+            <div class="tagline">STYLE · QUALITY · CONFIDENCE</div>
+
+            <h2>
+                Upgrade<br>
+                Your <span>Style.</span>
+            </h2>
+
+            <p>
+                Discover your next favorite products at Deo Store.
+                Explore our collection, find your perfect style, and
+                bring confidence to every day.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="product.html" class="shop-button">
+                    SHOP NOW <span>→</span>
+                </a>
+
+                <a href="about.html" class="explore-button">
+                    DISCOVER MORE
+                </a>
+            </div>
+        </div>
+
+        <section class="hero-gallery" aria-label="Featured T-shirt collection">
+
+            <div class="gallery-frame">
+
+                <div class="gallery-slide">
+                    <img
+                        src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1000&q=85"
+                        alt="Casual T-shirt collection"
+                    >
+
+                    <div class="gallery-caption">
+                        <span>01 / EVERYDAY ESSENTIALS</span>
+                        <h3>Made for<br>Everyday.</h3>
+                    </div>
+                </div>
+
+                <div class="gallery-slide">
+                    <img
+                        src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=1000&q=85"
+                        alt="Modern casual fashion style"
+                    >
+
+                    <div class="gallery-caption">
+                        <span>02 / YOUR PERSONAL STYLE</span>
+                        <h3>Wear Your<br>Confidence.</h3>
+                    </div>
+                </div>
+
+                <div class="gallery-slide">
+                    <img
+                        src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1000&q=85"
+                        alt="Fashion clothing collection"
+                    >
+
+                    <div class="gallery-caption">
+                        <span>03 / THE NEW COLLECTION</span>
+                        <h3>Find Your<br>Next Favorite.</h3>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="gallery-corner">DEO / COLLECTION</div>
+            <div class="gallery-decoration"></div>
+
+            <div class="gallery-bottom">
+                <span>CURATED FOR YOU</span>
+                <span>STYLE IN MOTION ↗</span>
+            </div>
+
+        </section>
+
+        <div class="hero-bottom">
+            <span>Find Your Style</span>
+            <span>DEO STORE © 2026</span>
+        </div>
+
+    </main>
+
+    <footer class="bottom-text">
+        &copy; 2026 DEO STORE. All Rights Reserved.
+    </footer>
+
+</body>
+</html>
